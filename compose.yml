@@ -1,0 +1,18 @@
+services:
+  builder:
+    image: public.ecr.aws/docker/library/rust:slim
+    networks:
+      - builder-net
+    volumes:
+      - .:/opt/app
+      - cargo-cache:/cache/cargo
+    environment:
+      PATH: $PATH:/cache/cargo/bin:/usr/local/cargo/bin
+      CARGO_HOME: /cache/cargo
+    working_dir: /opt/app
+    command:
+      - /bin/sh
+networks:
+  builder-net: {}
+volumes:
+  cargo-cache:
